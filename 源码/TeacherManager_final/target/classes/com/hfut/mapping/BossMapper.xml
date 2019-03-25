@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hfut.mapping.BossMapper">
+	<resultMap type="com.hfut.domain.Boss" id="boss">  
+    </resultMap> 
+    
+    <select id="queryByNamePassword" parameterType="java.util.Map" resultMap="boss">
+        SELECT * FROM Boss
+        <where>
+            <if test = "bossname!=null and password!=null"> 
+               <if test = "bossname !=null">
+               		BossNum=#{bossname}
+               </if>
+               <if test ="password!=null">
+               		<if test="bossname!=null">
+               		AND
+               		</if>
+               		BossPwd=#{password}
+               </if>
+            </if> 
+        </where>
+    </select>
+    
+    <select id="getAllBoss" resultMap="boss">
+        SELECT * FROM Boss 
+    </select> 
+    
+    <update id="updateBossPwd" parameterType="java.util.Map">
+    	update Boss set bosspwd=#{bosspwd} where bossnum=#{bossnum}
+    </update>
+</mapper>

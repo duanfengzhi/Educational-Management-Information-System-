@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hfut.mapping.ExTeacherMngMapper">
+	<resultMap type="com.hfut.domain.ExTeacher" id="Exteacher">  
+      
+    </resultMap> 
+
+    
+      <select id="getAllExTeacher" parameterType="string" resultMap="Exteacher">
+        SELECT * FROM ExTeacher 
+    </select>
+    
+      <select id="getExTeacher" parameterType="string" resultMap="Exteacher">
+        SELECT * FROM ExTeacher WHERE ExTeaNo=#{ExTeaNo}
+    </select>
+     
+
+     <update id="updateExTeacher" parameterType="com.hfut.domain.ExTeacher">
+    	UPDATE ExTeacher SET ExTeaName=#{ExTeaName},ExTeaTel=#{ExTeaTel},ExTeaEmail=#{ExTeaEmail},WorkKind=#{WorkKind},WorkUnit=#{WorkUnit},
+    	ExTeaCourse=#{ExTeaCourse},ExTitle=#{ExTitle},ExTdegree=#{ExTdegree},ExTgraduate=#{ExTgraduate},Major=#{Major}, JobYear=#{JobYear}, 
+    	ExProject=#{ExProject},Lisence=#{Lisence}
+    	WHERE ExTeaNo=#{ExTeaNo}
+    </update>
+    
+         <delete id="deleteExTeacher" parameterType="String">
+    	DELETE FROM ExTeacher WHERE ExTeaNo=#{ExTeaNo}
+    </delete>
+    
+    
+    </mapper>

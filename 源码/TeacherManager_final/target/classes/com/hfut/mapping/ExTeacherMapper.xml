@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hfut.mapping.ExTeacherMapper">
+	<resultMap type="com.hfut.domain.ExTeacher" id="exteacher">  
+    </resultMap>
+    
+	<resultMap type="com.hfut.domain.ExClasstable" id="ExClasstable">  
+    </resultMap>
+    
+    <resultMap type="com.hfut.domain.CourseInfo" id="courseInfo">  
+    </resultMap>
+    
+    <resultMap type="com.hfut.domain.SCentity" id="scentity">  
+    </resultMap> 
+    
+    <select id="queryByNamePassword" parameterType="java.util.Map" resultMap="exteacher">
+        SELECT * FROM ExTeacher
+        <where>
+            <if test = "exteano!=null and exteapwd!=null"> 
+               <if test = "exteano !=null">
+               		ExTeaNo=#{exteano}
+               </if>
+               <if test ="exteapwd!=null">
+               		<if test="exteano!=null">
+               		AND
+               		</if>
+               		ExPwd=#{exteapwd}
+               </if>
+            </if> 
+        </where>
+    </select>
+    
+    <select id="getAllExTeacher" resultMap="exteacher">
+        SELECT * FROM ExTeacher 
+    </select>
+    
+    <select id="getClassTable" parameterType="String" resultMap="ExClasstable">
+    	SELECT * FROM ExClassTable
+    	WHERE Exteano like '%${_parameter}%' 
+    </select>
+    
+    <select id="getCourseInfo" parameterType="String" resultMap="courseInfo">
+    	SELECT * FROM CourseInfo
+    	WHERE Teano like '%${_parameter}%' 
+    </select>
+    
+    <select id="getCourseStudent" parameterType="String" resultMap="scentity">
+    	SELECT * FROM SC
+    	WHERE CNo = #{_parameter}
+    </select> 
+    
+    <update id="updateExTeaselfinfo" parameterType="com.hfut.domain.ExTeacher">
+    	update ExTeacher set exteatel=#{ExTeaTel},exteaemail=#{ExTeaEmail},workunit=#{WorkUnit},exteacourse=#{ExTeaCourse},extitle=#{ExTitle},extgraduate=#{ExTgraduate},extdegree=#{ExTdegree},extitle=#{ExTitle},jobyear=#{JobYear},major=#{Major},exproject=#{ExProject},lisence=#{Lisence} where exteano=#{ExTeaNo}
+    </update>
+    
+    <update id="updateExTeaPwd" parameterType="java.util.Map">
+    	update ExTeacher set expwd=#{expwd} where exteano=#{exteano}
+    </update>
+</mapper>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hfut.mapping.TeacherMngMapper">
+	<resultMap type="com.hfut.domain.Teacher" id="teacher">  
+      
+    </resultMap> 
+
+    
+     <update id="updateActiveTeacher" parameterType="com.hfut.domain.Teacher">
+    	UPDATE Teacher SET TeaKind=#{TeaKind},TeaBelong=#{TeaBelong} ,
+    	TeaCourse=#{TeaCourse} ,TeaTitle=#{TeaTitle}, Teadegree=#{Teadegree},TeaAge=#{TeaAge}, TeaSex=#{TeaSex},
+    	Teagraduate=#{Teagraduate},OverSeaExp=#{OverSeaExp}
+    	WHERE TeaNo=#{TeaNo}
+    </update>
+
+		
+     <update id="updateTeacher" parameterType="com.hfut.domain.Teacher">
+    	UPDATE Teacher SET TeaName=#{TeaName} ,TeaTel=#{TeaTel} ,TeaEmail=#{TeaEmail} ,TeaKind=#{TeaKind},TeaBelong=#{TeaBelong} ,
+    	TeaCourse=#{TeaCourse} ,TeaTitle=#{TeaTitle}, Teadegree=#{Teadegree}, TeaAge=#{TeaAge}, TeaSex=#{TeaSex},
+    	Teagraduate=#{Teagraduate},OverSeaExp=#{OverSeaExp}
+    	WHERE TeaNo=#{TeaNo}
+    </update>
+    
+    	<select id="getActiveTeacher" parameterType="string" resultMap="teacher">
+        SELECT * FROM Teacher WHERE isActive='n'
+    </select>
+
+    
+        
+    <select id="queryMaxCount" parameterType="java.util.Map" resultType="int">
+        SELECT COUNT(TeaNo) FROM Teacher
+         <where>
+         isActive='y'
+            <if test = "TeaName!=null"> 
+            AND  TeaName=#{TeaName}
+            </if> 
+            <if test="TeaBelong!=null"> 
+             AND TeaBelong=#{TeaBelong}
+            </if> 
+        </where>
+    </select>
+    
+    <select id="queryByPage" parameterType="java.util.Map" resultMap="teacher">
+        SELECT * FROM Teacher
+         <where>
+         isActive='y'
+            <if test = "TeaName!=null and TeaName !='' "> 
+              AND TeaName like '%${TeaName}%'
+            </if> 
+            <if test="TeaBelong!=null and TeaBelong !=''"> 
+            AND TeaBelong like '${TeaBelong}%' 
+            </if> 
+        </where>
+        LIMIT #{startRow}, #{rowCount}
+    </select>
+    
+
+    
+      <select id="getTeacher" parameterType="string" resultMap="teacher">
+        SELECT * FROM Teacher WHERE TeaNo=#{TeaNo}
+    </select>
+    
+     <update id="updatePassTeacher" parameterType="String">
+    	UPDATE Teacher SET isActive='y'
+    	WHERE TeaNo=#{TeaNo}
+    </update>
+    
+     <delete id="deleteTeacher" parameterType="String">
+    	DELETE FROM Teacher WHERE TeaNo=#{TeaNo}
+    </delete>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    </mapper>

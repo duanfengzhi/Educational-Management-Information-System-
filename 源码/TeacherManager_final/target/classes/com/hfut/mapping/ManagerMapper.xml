@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hfut.mapping.ManagerMapper">
+	<resultMap type="com.hfut.domain.Manager" id="mng">  
+    </resultMap> 
+    <select id="queryByNamePassword" parameterType="java.util.Map" resultMap="mng">
+        SELECT * FROM Manager
+        <where>
+            <if test = "adno!=null and adpwd!=null"> 
+               <if test = "adno !=null">
+               		adno=#{adno}
+               </if>
+               <if test ="adpwd!=null">
+               		<if test="adno!=null">
+               		AND
+               		</if>
+               		adpwd=#{adpwd}
+               </if>
+            </if> 
+        </where>
+    </select>
+    
+    <update id="updateMngPwd" parameterType="java.util.Map">
+    	update Manager set adpwd=#{adpwd} where adno=#{adno}
+    </update>
+</mapper>

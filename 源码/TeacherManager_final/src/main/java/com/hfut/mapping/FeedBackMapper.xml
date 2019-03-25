@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hfut.mapping.FeedBackMapper">
+    <resultMap type="com.hfut.domain.FeedBack" id="feedback">  
+    </resultMap>
+    
+    <insert id="addFeedBack" parameterType="com.hfut.domain.FeedBack" useGeneratedKeys="true" keyProperty="fnum">
+    	INSERT INTO FeedBack (stuNum, type, claName, teaName, info, state, sendTime, status, picture)
+    	values (#{stuNum}, #{type}, #{claName}, #{teaName}, #{info}, #{state}, #{sendTime}, #{status}, #{picture})
+    </insert>
+       
+     <select id="queryMaxCount" parameterType="java.util.Map" resultType="int">
+        SELECT COUNT(fnum) FROM FeedBack 
+        <where>
+            <if test = "date1 != null and date2 != null"> 
+                startTime between #{date1} and #{date2}
+            </if> 
+            <if test="status != null and status != ''"> 
+                <if test = "date1 != null and date2 != null"> 
+                    AND 
+                </if> 
+                status = #{status}
+            </if> 
+        </where>
+    </select>
+
+    <select id="queryByPage" parameterType="java.util.Map" resultMap="feedback">
+        SELECT * FROM FeedBack
+        <where>
+            <if test = "date1 != null and date2 != null"> 
+                startTime between #{date1} and #{date2}
+            </if> 
+            <if test="status != null and status != ''"> 
+                <if test = "date1 != null and date2 != null"> 
+                    AND 
+                </if> 
+                status = #{status}
+            </if> 
+        </where>
+        LIMIT #{startRow}, #{rowCount}
+    </select>
+    
+    <select id="queryMaxCountByStunum" parameterType="java.util.Map" resultType="int">
+        SELECT COUNT(fnum) FROM FeedBack 
+        <where>
+        	stuNum = #{stuNum}    
+            <if test = "date1 != null and date2 != null"> 
+                and startTime between #{date1} and #{date2}
+            </if> 
+            <if test="status != null and status != ''"> 
+                <if test = "date1 != null and date2 != null"> 
+                    AND 
+                </if> 
+                and status = #{status}
+            </if>         
+        </where>
+    </select>
+
+    <select id="queryByPageAndStunum" parameterType="java.util.Map" resultMap="feedback">
+        SELECT * FROM FeedBack
+        WHERE stuNum = #{stuNum}
+        
+        <if test = "date1 != null and date2 != null"> 
+            and startTime between #{date1} and #{date2}
+        </if> 
+        <if test="status != null and status != ''"> 
+            <if test = "date1 != null and date2 != null"> 
+                AND 
+            </if> 
+            and status = #{status}
+        </if> 
+        LIMIT #{startRow}, #{rowCount}
+    </select>
+    
+    <select id="queryMaxCountByRecipient" parameterType="java.util.Map" resultType="int">
+        SELECT COUNT(fnum) FROM FeedBack 
+        <where>
+        	recipient = #{recipient}
+            <if test = "date1 != null and date2 != null"> 
+                and startTime between #{date1} and #{date2}
+            </if> 
+            <if test="status != null and status != ''"> 
+                <if test = "date1 != null and date2 != null"> 
+                    AND 
+                </if> 
+                and status = #{status}
+            </if> 
+        </where>
+    </select>
+
+    <select id="queryByPageAndRecipient" parameterType="java.util.Map" resultMap="feedback">
+        SELECT * FROM FeedBack
+        <where>
+        	recipient = #{recipient}
+            <if test = "date1 != null and date2 != null"> 
+                and startTime between #{date1} and #{date2}
+            </if> 
+            <if test="status != null and status != ''"> 
+                <if test = "date1 != null and date2 != null"> 
+                    AND 
+                </if> 
+                and status = #{status}
+            </if> 
+        </where>
+        LIMIT #{startRow}, #{rowCount}
+    </select>
+    
+    <select id="getByFnum" parameterType="Integer" resultMap="feedback">
+    	SELECT * from FeedBack
+    	<where>
+    		fnum = #{fnum}
+    	</where>
+    </select>
+    
+    <update id="setRecipient" parameterType="com.hfut.domain.FeedBack">
+        UPDATE FeedBack SET status=#{status}, recipient=#{recipient} WHERE fnum=#{fnum}
+    </update>
+    
+    <update id="setReply" parameterType="com.hfut.domain.FeedBack">
+        UPDATE FeedBack SET status=#{status}, reply=#{reply} WHERE fnum=#{fnum}
+    </update>
+    
+    <select id="getFeedbackStuName" parameterType="String" resultType="java.lang.String">
+    	SELECT StuName from Student
+    	<where>
+    		stuno = #{stuNum}
+    	</where>
+    </select>
+</mapper>

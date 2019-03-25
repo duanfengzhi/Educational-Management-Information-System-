@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hfut.mapping.StudentMapper">
+	<resultMap type="com.hfut.domain.Student" id="student">  
+    </resultMap> 
+    <select id="queryByNamePassword" parameterType="java.util.Map" resultMap="student">
+        SELECT * FROM Student
+        <where>
+            <if test = "studentname!=null and password!=null"> 
+               <if test = "stuname != null">
+               		StuName=#{studentname}
+               </if>
+               <if test ="password!=null">
+               		<if test="stuname!=null">
+               		AND
+               		</if>
+               		StuPwd=#{password}
+               </if>
+            </if> 
+        </where>
+    </select>
+    
+    <update id="updateStuPwd" parameterType="java.util.Map">
+    	update Student set stupwd=#{stupwd} where stuno=#{stuno}
+    </update>
+</mapper>

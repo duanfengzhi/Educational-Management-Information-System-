@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hfut.mapping.DownloadMapper">
+ 	<select id="queryAllTeacher"  resultType="com.hfut.domain.Teacher">
+    	select * from Teacher  
+    </select>
+	<select id="queryAllExTeacher"  resultType="com.hfut.domain.ExTeacher">
+    	select * from ExTeacher  
+    </select>
+    <select id="queryStulistByCno"  resultType="com.hfut.domain.SCentity">
+    	select * from SC where cno=#{cno}
+    </select>
+</mapper>

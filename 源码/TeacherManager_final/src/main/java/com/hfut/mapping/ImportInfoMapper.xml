@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hfut.mapping.ImportInfoMapper">
+ 
+    <insert id="importSCInfo" parameterType="com.hfut.domain.SCentity" >
+        INSERT INTO SC(StuNo,StuName,CTimeRange,CNo,CName,CNoDe) 
+        values(#{stuNo},#{stuName},#{cTimeRange},#{cNo},#{cName},#{cNoDe})
+    </insert>
+    
+    <insert id="importStuInfo" parameterType="com.hfut.domain.Student" >
+        REPLACE INTO Student(StuNo,StuPwd,StuName,StuSex,StuInTime,StuClass,StuAddr,StuTel,StuEmail) 
+        values(#{stuno},#{stupwd},#{stuname},#{stusex},#{stuintime},#{stuclass},#{stuaddr},#{stutel},#{stuemail})
+    </insert>
+    
+    <insert id="importTeaInfo" parameterType="com.hfut.domain.Teacher" >
+        REPLACE INTO Teacher(teano,teapwd,teaname,teatel,teaemail,isactive) 
+        values(#{TeaNo},#{TeaPwd},#{TeaName},#{TeaTel},#{TeaEmail},#{isActive})
+    </insert>
+    
+    <insert id="importExTeaInfo" parameterType="com.hfut.domain.ExTeacher" >
+        REPLACE INTO ExTeacher(exteano,expwd,exteaname,exteatel,exteaemail,workunit,workkind,extitle,extdegree,jobyear,extgraduate,exteacourse,major,exproject,lisence) 
+        values(#{exTeaNo},#{exPwd},#{exTeaName},#{exTeaTel},#{exTeaEmail},#{workUnit},#{workKind},#{exTitle},#{exTdegree},#{jobYear},#{exTgraduate},#{exTeaCourse},#{Major},#{exProject},#{lisence})
+    </insert>
+    
+    <insert id="importBossInfo" parameterType="com.hfut.domain.Boss" >
+        REPLACE INTO Boss(bossnum,bosspwd,bossname) 
+        values(#{bossnum},#{bosspwd},#{bossname})
+    </insert>
+    
+    <insert id="importCouInfo" parameterType="com.hfut.domain.CourseInfo" >
+        REPLACE INTO CourseInfo(cno,cname,cbegintime,ccredit,ccreditofex,cperiod,cperiodofex,cperiodofth,cperiodofpra,cperiodofcom,cutil,ctype,teano,teaname) 
+        values(#{cno},#{cname},#{cbegintime},#{ccredit},#{ccreditofex},#{cperiod},#{cperiodofex},#{cperiodofth},#{cperiodofpra},#{cperiodofcom},#{cutil},#{ctype},#{teano},#{teaname})
+    </insert>
+    
+    <insert id="importMngInfo" parameterType="com.hfut.domain.Manager" >
+        REPLACE INTO Manager(adno,adpwd,adname,adtel,ademail,level) 
+        values(#{adno},#{adpwd},#{adname},#{adtel},#{ademail},#{level})
+    </insert>
+    
+    <insert id="importExCTInfo" parameterType="com.hfut.domain.ExClasstable" >
+        INSERT INTO ExClassTable(cno,cname,ctimeweek,ctimeday,ctime,caddr,exteano,exteaname) 
+        values(#{cno},#{cname},#{ctimeweek},#{ctimeday},#{ctime},#{caddr},#{exteano},#{exteaname})
+    </insert>
+</mapper>

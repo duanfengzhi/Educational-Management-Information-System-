@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hfut.mapping.TeacherMapper">
+	<resultMap type="com.hfut.domain.Teacher" id="teacher">  
+    </resultMap> 
+    
+    <resultMap type="com.hfut.domain.CourseInfo" id="courseInfo">  
+    </resultMap>
+    
+    <resultMap type="com.hfut.domain.SCentity" id="scentity">  
+    </resultMap> 
+    
+    <select id="queryByNamePassword" parameterType="java.util.Map" resultMap="teacher">
+        SELECT * FROM TeacherInfo	
+        <where>
+            <if test = "teano!=null and teapwd!=null"> 
+               <if test = "teano !=null">
+               		TeaNo=#{teano}
+               </if>
+               <if test ="teapwd!=null">
+               		<if test="teano!=null">
+               		AND
+               		</if>
+               		TeaPwd=#{teapwd}
+               </if>
+            </if> 
+        </where>
+    </select>
+    
+    
+    <update id="updateTeaPwd" parameterType="java.util.Map">
+    	update Teacher set teapwd=#{teapwd} where teano=#{teano}
+    </update>
+    
+    <update id="updateFinalcheck" parameterType="com.hfut.domain.Teacher">
+    	update Teacher set engback=#{EngBack},coorresult=#{CoorResult},project=#{Project},paper=#{Paper},patent=#{Patent},thesoft=#{TheSoft},mono=#{Mono},teapaper=#{TeaPaper},teahonor=#{Teahonor},teamorality=#{TeaMorality} where teano=#{TeaNo}
+    </update>
+    
+    <update id="updateTeaselfinfo" parameterType="com.hfut.domain.Teacher">
+    	update Teacher set teatel=#{TeaTel},teaemail=#{TeaEmail},teaage=#{TeaAge},teakind=#{TeaKind},teabelong=#{TeaBelong},teacourse=#{TeaBelong},teatitle=#{TeaTitle},Overseaexp=#{OverSeaExp},teagraduate=#{Teagraduate},teadegree=#{Teadegree} where teano=#{TeaNo}
+    </update>
+    
+    <select id="getAllTeacher" resultMap="teacher">
+        SELECT * FROM Teacher 
+    </select> 
+    
+    <select id="getCourseInfo" parameterType="String" resultMap="courseInfo">
+    	SELECT * FROM CourseInfo
+    	WHERE Teano like '%${_parameter}%'
+    </select>
+    
+    <select id="getCourseStudent" parameterType="String" resultMap="scentity">
+    	SELECT * FROM SC
+    	WHERE CNo = '%${_parameter}%'
+    </select>
+</mapper>
